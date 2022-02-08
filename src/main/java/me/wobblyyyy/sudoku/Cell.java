@@ -62,7 +62,11 @@ public class Cell {
 
     @Override
     public String toString() {
-        return " " + String.valueOf(value);
+        if (value != 0) {
+            return " " + String.valueOf(value);
+        } else {
+            return "  ";
+        }
     }
 
     @Override

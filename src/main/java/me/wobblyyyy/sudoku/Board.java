@@ -8,20 +8,20 @@ import java.util.stream.IntStream;
 public class Board extends ArrayList<Cell> {
     public static final int BOARD_SIZE = 9;
     private static final String TEMPLATE = """
-+-----------+-----------+-----------+ ********************************
-| %s %s %s  | %s %s %s  | %s %s %s  | * Controls                     *
-| %s %s %s  | %s %s %s  | %s %s %s  | * SPACE             clear cell *
-| %s %s %s  | %s %s %s  | %s %s %s  | * W, K, or UP        cursor up *
-+-----------+-----------+-----------+ * A, H, or LEFT    cursor left *
-| %s %s %s  | %s %s %s  | %s %s %s  | * S, J, or DOWN    cursor down *
-| %s %s %s  | %s %s %s  | %s %s %s  | * D, L, or RIGHT  cursor right *
-| %s %s %s  | %s %s %s  | %s %s %s  | * 1-9            insert number *
-+-----------+-----------+-----------+ ********************************
-| %s %s %s  | %s %s %s  | %s %s %s  |
-| %s %s %s  | %s %s %s  | %s %s %s  |
-| %s %s %s  | %s %s %s  | %s %s %s  |
-+-----------+-----------+-----------+
-
++-----------+-----------+-----------+  **********************************
+| %s %s %s  | %s %s %s  | %s %s %s  |  **           Controls           **
+| %s %s %s  | %s %s %s  | %s %s %s  |  **********************************
+| %s %s %s  | %s %s %s  | %s %s %s  |  ** SPACE             clear cell **
++-----------+-----------+-----------+  ** W, K, or UP        cursor up **
+| %s %s %s  | %s %s %s  | %s %s %s  |  ** A, H, or LEFT    cursor left **
+| %s %s %s  | %s %s %s  | %s %s %s  |  ** S, J, or DOWN    cursor down **
+| %s %s %s  | %s %s %s  | %s %s %s  |  ** D, L, or RIGHT  cursor right **
++-----------+-----------+-----------+  ** 1-9            insert number **
+| %s %s %s  | %s %s %s  | %s %s %s  |  ** Q                  quit game **
+| %s %s %s  | %s %s %s  | %s %s %s  |  **                              **
+| %s %s %s  | %s %s %s  | %s %s %s  |  **                              **
++-----------+-----------+-----------+  ********************************** 
+                                       
 Cursor Position X: %s
 Cursor Position Y: %s
 Cursor Group:      %s
@@ -238,18 +238,30 @@ Message:           %s
         return String.format(TEMPLATE, params);
     }
 
-    public static Cell move(Cell current,
-                            Direction direction) {
+    public Cell move(Cell current,
+                     Direction direction) {
         int x = current.x();
         int y = current.y();
 
+        Cell cell;
+
         switch (direction) {
-            case UP: return new Cell(x, y - 1, 0);
-            case DOWN: return new Cell(x, y + 1, 0);
-            case LEFT: return new Cell(x - 1, y, 0);
-            case RIGHT: return new Cell(x + 1, y, 0);
+            case UP: cell = new Cell(x, y - 1, 0); break;
+            case DOWN: cell = new Cell(x, y + 1, 0); break;
+            case LEFT: cell = new Cell(x - 1, y, 0); break;
+            case RIGHT: cell = new Cell(x + 1, y, 0); break;
             default: throw new RuntimeException();
         }
+
+        message = String.format(
+                "moved cursor from (%s, %s) to (%s, %s)",
+                x,
+                y,
+                cell.x(),
+                cell.y()
+        );
+
+        return cell;
     }
 
     public void move(Direction direction) {

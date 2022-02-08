@@ -90,6 +90,10 @@ public class Sudoku {
 
         game.board.autoSolve();
         game.board.removeRandom();
+
+        game.render.clearScreen();
+        game.render.render();
+
         while (!game.isDone() && !game.shouldQuit)
             game.loop();
     }
