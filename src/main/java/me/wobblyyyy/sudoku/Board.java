@@ -1,5 +1,7 @@
 package me.wobblyyyy.sudoku;
 
+import me.wobblyyyy.pathfinder2.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -102,7 +104,7 @@ Message:           %s
         boolean validGroup = isValid(listGroup);
         
         if (validX && validY && validGroup) {
-            message = String.format(
+            message = StringUtils.format(
                     "set cell (%s, %s) to have value %s",
                     c.x(),
                     c.y(),
@@ -111,7 +113,7 @@ Message:           %s
             return true;
         } else {
             c.value(oldValue);
-            message = String.format(
+            message = StringUtils.format(
                     "could not set cell (%s, %s) because INVALID %s",
                     c.x(),
                     c.y(),
@@ -235,7 +237,7 @@ Message:           %s
         params[idx++] = cursorCell.value();
         params[idx++] = message;
 
-        return String.format(TEMPLATE, params);
+        return StringUtils.format(TEMPLATE, params);
     }
 
     public Cell move(Cell current,
@@ -253,7 +255,7 @@ Message:           %s
             default: throw new RuntimeException();
         }
 
-        message = String.format(
+        message = StringUtils.format(
                 "moved cursor from (%s, %s) to (%s, %s)",
                 x,
                 y,

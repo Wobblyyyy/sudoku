@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
+// need to use language level 15 to support text blocks
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(15))
@@ -11,10 +11,6 @@ java {
 
 group 'me.wobblyyyy'
 version '1.0.0'
-
-application {
-    mainClassName = 'me.wobblyyyy.sudoku.Sudoku'
-}
 
 jar {
     manifest {
